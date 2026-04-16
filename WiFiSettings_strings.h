@@ -29,12 +29,16 @@ struct Texts {
    !defined LANGUAGE_EN \
 && !defined LANGUAGE_NL \
 && !defined LANGUAGE_DE \
-&& !defined LANGUAGE_PL
+&& !defined LANGUAGE_PL \
+&& !defined LANGUAGE_ID
     #define LANGUAGE_ALL
 #endif
 
 std::map<const String, const String> languages {
 // Ordered alphabetically
+#if defined LANGUAGE_ID || defined LANGUAGE_ALL
+    { "id", "Bahasa Indonesia" },
+#endif
 #if defined LANGUAGE_DE || defined LANGUAGE_ALL
     { "de", "Deutsch" },
 #endif
@@ -46,9 +50,6 @@ std::map<const String, const String> languages {
 #endif
 #if defined LANGUAGE_PL || defined LANGUAGE_ALL
     { "pl", "Polski" },
-#endif
-#if defined LANGUAGE_ID  // Intentionally excluded from LANGUAGE_ALL to avoid code-bloat // || defined LANGUAGE_ALL
-    { "id", "Bahasa Indonesia" },
 #endif
 
 };
@@ -155,25 +156,25 @@ bool select(Texts& T, String& language) {
     }
 #endif
 
-#if defined LANGUAGE_ID // Excluded from LANGUAGE_ALL to avoid code-bloat || defined LANGUAGE_ALL
-    // Note these are auto-translated by Google Translate, better translations welcome.
+#if defined LANGUAGE_ID || defined LANGUAGE_ALL
     if (WiFiSettings.language == "id") {
-      T.title = F("Konfigurasi");
-      T.portal_wpa = F("Lindungi portal konfigurasi dengan kata sandi WiFi");
-      T.portal_password = F("Kata sandi WiFi untuk portal konfigurasi");
-      T.init = "default";
-      T.wait = F("Tunggu...");
-      T.bye = F("Selamat tinggal!");
-      T.error_fs = F("Terjadi kesalahan saat menulis ke sistem berkas flash.");
-      T.button_save = F("Simpan");
-      _T.button_restart = F("Mulai ulang perangkat");
-      T.scanning_short = F("Memindai...");
-      T.scanning_long = F("Memindai jaringan WiFi...");
-      T.rescan = F("memindai ulang");
-      T.dot1x = F("(tidak berfungsi: 802.1x tidak didukung)");
-      T.ssid = F("Nama jaringan WiFi (SSID)");
-      T.wifi_password = F("Kata sandi WiFi"); 
-      T.bahasa = F("Bahasa");
+       T.title = F("Konfigurasi");
+       T.portal_wpa = F("Lindungi portal konfigurasi dengan kata sandi WiFi");
+       T.portal_password = F("Kata sandi WiFi untuk portal konfigurasi");
+       T.init = "default";
+       T.wait = F("Tunggu...");
+       T.bye = F("Selamat tinggal!");
+       T.error_fs = F("Terjadi kesalahan saat menulis ke sistem berkas flash.");
+       T.button_save = F("Simpan");
+       _T.button_restart = F("Mulai ulang perangkat");
+       T.scanning_short = F("Memindai...");
+       T.scanning_long = F("Memindai jaringan WiFi...");
+       T.rescan = F("memindai ulang");
+       T.dot1x = F("(tidak berfungsi: 802.1x tidak didukung)");
+       T.ssid = F("Nama jaringan WiFi (SSID)");
+       T.wifi_password = F("Kata sandi WiFi"); 
+       T.bahasa = F("Bahasa");
+       return true;
     }
 #endif
     return false;
